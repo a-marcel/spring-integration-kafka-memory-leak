@@ -178,12 +178,5 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- Avro Encoder -->
-		<dependency>
-			<groupId>com.weeaar.spring</groupId>
-			<artifactId>http</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
 	</dependencies>
 </project>

@@ -17,4 +17,5 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<import resource="kafka-context.xml" />
 </beans>
