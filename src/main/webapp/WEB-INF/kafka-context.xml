@@ -28,15 +28,15 @@
 	</bean>
 
 
-	<int-kafka:zookeeper-connect id="zookeeperConnect" zk-connect="127.0.0.1" zk-connection-timeout="6000"
-		zk-session-timeout="6000" zk-sync-time="2000" />
+	<int-kafka:zookeeper-connect id="zookeeperConnect" zk-connect="127.0.0.1" zk-connection-timeout="6000" zk-session-timeout="6000"
+		zk-sync-time="2000" />
 
 
 	<bean id="kafkaTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-		<!-- <property name="corePoolSize" value="5" />
-		<property name="maxPoolSize" value="10" />
-		<property name="queueCapacity" value="25" />-->
+		<!-- <property name="corePoolSize" value="5" /> <property name="maxPoolSize" value="10" /> <property name="queueCapacity" value="25" /> -->
 	</bean>
+
+	<bean id="kafkaThreadListener" class="org.example.kafkamemoryleak.listener.KafkaConsumerStarter" init-method="initIt" destroy-method="cleanUp" />
 
 	<int-kafka:inbound-channel-adapter kafka-consumer-context-ref="consumerContext" auto-startup="false" channel="inputFromKafka"
 		id="kafka-inbound-channel-adapter">
