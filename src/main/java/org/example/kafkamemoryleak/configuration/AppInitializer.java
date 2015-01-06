@@ -5,13 +5,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.Log4jConfigListener;
 
-public class AppInitializer extends AbstractHttpSessionApplicationInitializer
+public class AppInitializer implements WebApplicationInitializer
 {
 
 	@Override
@@ -20,8 +20,6 @@ public class AppInitializer extends AbstractHttpSessionApplicationInitializer
 		container.setInitParameter("log4jConfigLocation", "/WEB-INF/properties/log4j.xml");
 		container.addListener(Log4jConfigListener.class);
 		
-		super.onStartup(container);
-
 		XmlWebApplicationContext dispatcherContext = new XmlWebApplicationContext();
 		dispatcherContext.setConfigLocation("/WEB-INF/mvc-config.xml");
 
@@ -29,8 +27,5 @@ public class AppInitializer extends AbstractHttpSessionApplicationInitializer
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.setAsyncSupported(true);
 		dispatcher.addMapping("/");
-		
-		FilterRegistration.Dynamic securityFilter = container.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);
-	    securityFilter.addMappingForUrlPatterns(null, false, "/*");
 	}
 }
