@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="Appender1" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[frontend] %-7p %d [%t] %c %x %X{pulseid} - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="default.file" class="org.apache.log4j.FileAppender">
+		<param name="file" value="/tmp/frontend.log" />
+		<param name="append" value="false" />
+		<param name="threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[frontend] %d{ISO8601} %-5p %X{pulseid} [%c{1}] - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- <appender name="FLUENTD" class="com.weeaar.dynads.common.logger.fluentd.FluentdLog4jAppender"> <param name="tagprefix" value="dynads.test" /> <param name="clientid" 
+		value="MacbookPro" /> <param name="fluentdHost" value="10.0.1.5" /> <param name="port" value="24224" /> </appender> -->
+
+
+	<!-- Spring -->
+	<logger name="org.springframework.security" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="Appender1" />
+		<appender-ref ref="default.file" />
+	</logger>
+
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="Appender1" />
+		<appender-ref ref="default.file" />
+
+		<!-- <appender-ref ref="FLUENTD" /> -->
+		<!-- <appender-ref ref="Appender2" /> -->
+	</root>
+
+</log4j:configuration>
